@@ -8,12 +8,6 @@ def file_copy(path: str):
     return string
 
 
-# def fill(counter):
-#     if counter <1:
-#         return []
-#     if counter >1:
-#         return ["KEK1", "KEK2", "KEK3"]
-
 def doc_search(text: str, such_string: str):
     such_liste = []
     count = 0
@@ -42,29 +36,30 @@ layout = [
     [[sg.Listbox(values=[], size=(70, 5), key="-LISTBOX-")]],
     [sg.Exit()],
 ]
-# TODO GitHub updaten
+
+
 # TODO Umlaute werden nicht ausgegeben
 window = sg.Window("Suchfunktion", layout)  # TODO die Größe anpassen
 
 while True:
     event, values = window.read()
-    # print(event, values)
+
     if event in (sg.WINDOW_CLOSED, "Exit"):
         break
     if event == "Suchen":
         such_wort = values["-SUCH-"]
+
         if such_wort == "":
             break  # TODO stoppt das Programm --muss mit return option ersetzt werden
-        print(such_wort)
         filepath = values["-IN-"]  # null wert abfrage
         dokument = file_copy(filepath)
+
         if dokument == "":  # TODO stoppt das Programm --muss mit return option ersetzt werden. String.Empty Option?
             break
-        print(dokument)
         suchliste, counter = doc_search(dokument, such_wort)
 
-        window["-LISTBOX-"].update(values=suchliste)  # Listbox wird hier aktualisiert
-    elif event == "-IN-":  # Ausgabe des Filenamens, keinen vollen Pfad
+        window["-LISTBOX-"].update(values=suchliste)
+    elif event == "-IN-":
         filepath = values["-IN-"]
         filename = os.path.basename(filepath)
         window["-FILE-"].update(filename)

@@ -12,7 +12,6 @@ def file_copy(path: str):
         print("KEK")
         return
 
-
 def doc_search(text: str, such_string: str):
     such_liste = []
     counter = 0
@@ -25,12 +24,6 @@ def doc_search(text: str, such_string: str):
             counter += 1
             such_liste.append(satz)
     return such_liste, counter
-
-
-# Kann nur 1 Wiederholung pro Satz registriert werden
-# ttext="Ein weiterer wichtiger Aspekt der Biogasforschung ist Auswirkung die Erforschung der Auswirkungen der Biogasproduktion auf die Umwelt. So wird untersucht, welche Auswirkungen der Einsatz von Biogas auf die Treibhausgasemissionen hat und wie sich Biogasanlagen auf die lokale Umwelt auswirken."
-# tsuch="Ausw"
-# tsl,c=doc_search(ttext,tsuch)
 
 def ausgabe(such_liste, c):
     print(f"Es wurden {c} Sätze gefunden.\n")
@@ -56,12 +49,9 @@ def main_prog():
         such_string = input("Suchen nach: ")
         if such_string == "break":
             return
-        #such_liste = []
-        #counter = 0
         such_liste, counter = doc_search(full_text, such_string)
 
         ausgabe(such_liste, counter)
 
 
-# ausgabe(tsl,c)
 main_prog()
