@@ -2,8 +2,9 @@ import PySimpleGUI as sg
 import os
 
 
+
 def file_copy(path: str):
-    with open(path, "r") as file:
+    with open(path, "r",encoding='utf-8') as file:
         string = file.read()
     return string
 
@@ -37,8 +38,6 @@ layout = [
     [sg.Exit()],
 ]
 
-
-# TODO Umlaute werden nicht ausgegeben
 window = sg.Window("Suchfunktion", layout)  # TODO die Größe anpassen
 
 while True:
@@ -46,22 +45,19 @@ while True:
 
     if event in (sg.WINDOW_CLOSED, "Exit"):
         break
-    if event == "Suchen":
-        such_wort = values["-SUCH-"]
-
-        if such_wort == "":
-            break  # TODO stoppt das Programm --muss mit return option ersetzt werden
-        filepath = values["-IN-"]  # null wert abfrage
-        dokument = file_copy(filepath)
-
-        if dokument == "":  # TODO stoppt das Programm --muss mit return option ersetzt werden. String.Empty Option?
-            break
-        suchliste, counter = doc_search(dokument, such_wort)
-
-        window["-LISTBOX-"].update(values=suchliste)
-    elif event == "-IN-":
+    such_wort=values["-SUCH-"]
+    #print(such_wort)
+    if event == "-IN-":
         filepath = values["-IN-"]
         filename = os.path.basename(filepath)
         window["-FILE-"].update(filename)
+    elif event == "Suchen" and such_wort!="":
+        filepath = values["-IN-"]
+        dokument = file_copy(filepath)
+
+        suchliste, counter = doc_search(dokument, such_wort)
+
+        window["-LISTBOX-"].update(values=suchliste)
+
 
 window.close()

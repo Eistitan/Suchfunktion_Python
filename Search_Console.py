@@ -1,6 +1,6 @@
 def file_copy(path: str):
     try:
-        with open(path, "r") as file:
+        with open(path, "r",encoding='utf-8') as file:
             string = file.read()
         print("File gefunden")
         return string
